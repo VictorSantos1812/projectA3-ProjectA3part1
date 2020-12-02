@@ -15,7 +15,6 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
   private modo: string = "login";
-  private loginUser: string;
   public user: User;
   login: string;
   senha: string;
@@ -31,20 +30,20 @@ export class LoginComponent implements OnInit {
       })
     })
 
-    this.route.paramMap.subscribe((paramMap: ParamMap)=>{
-      if(paramMap.has("loginUser")){
-        this.modo = "login";
-        this.loginUser = paramMap.get("loginUser");
-        this.userService.getUsuario(this.loginUser).subscribe(dadosUser =>{
-          this.user={
-            id: dadosUser.id,
-            email: dadosUser.email,
-            login: dadosUser.login,
-            senha: dadosUser.senha
-          }
-        })
-      }
-    })}
+    // this.route.paramMap.subscribe((paramMap: ParamMap)=>{
+    //   if(paramMap.has("loginUser")){
+    //     this.modo = "login";
+    //     this.loginUser = paramMap.get("loginUser");
+    //     this.userService.getUsuario(this.loginUser).subscribe(dadosUser =>{
+    //       this.user={
+    //         id: dadosUser.id,
+    //         email: dadosUser.email,
+    //         login: dadosUser.login,
+    //         senha: dadosUser.senha
+    //       }
+    //     })
+    //   }
+    }
 
 
 
@@ -55,11 +54,20 @@ constructor(public userService: UserService, public route: ActivatedRoute){}
     this.userService.verificarUser(
       this.form.value.login,
       this.form.value.senha,
-      this.form.value.email,
       this.form.value.id
    );
 
-}
+
+   }
+
+//  onVerificar(){
+//      this.userService.getUsuario(
+//       this.form.value.login,
+//       this.form.value.senha,
+//       this.form.value.email,
+//       this.form.value.id
+//      )
+// }
 
 
 }

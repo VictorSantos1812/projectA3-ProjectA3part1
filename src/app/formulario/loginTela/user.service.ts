@@ -5,34 +5,40 @@ import { User } from '../loginTela/user.model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { bcryptjs } from 'bcryptjs';
+import { AuthData } from './authData.model';
 
 
 @Injectable({ providedIn: "root"})
 export class UserService {
   private user : User[] = [];
   private listaUserAtualizada = new Subject<User[]>();
+  private authStatusSubject = new Subject<boolean>();
+
+
   private idUsuario: string;
-  private login: string;
-  private senha: string;
 
 
 constructor(private httpClient: HttpClient, private router: Router){
-
 }
+
+public getStatusSubject (){
+  return this.authStatusSubject.asObservable();
+}
+
   getUser(): void{
     this.httpClient.get<{mensagem: string, users: any}>('http://localhost:3030/auth/authenticate')
     .pipe(map((dados) => {
       return dados.users.map(user =>{
         return{
-          id: user._id,
-          email: user.email,
-          login: user.login
+          login: user.login,
+          senha: user.senha
         }
       })
     }))
     .subscribe((dados)=>{
       this.user = dados.users;
       this.listaUserAtualizada.next([...this.user]);
+      return(dados)
     })
   }
 
@@ -54,26 +60,24 @@ constructor(private httpClient: HttpClient, private router: Router){
     }
 
 
-    getUsuario(loginUser: string){
-      return this.httpClient.get<{id: string, login: String, email: String, senha: String}>
-      (`http://localhost/auth/authenticate/${loginUser}`);
-    }
-
-  verificarUser(login: string, senha: string, email: null, id: string){
-    const user: User = {
-      login,
-      senha,
-      email,
-      id
-    }
-      this.httpClient.post<{id: string, email: string, login: string, senha:string}>
-      (`http://localhost:3030/auth/authenticate`, user).subscribe(login =>{
-
-        if(!login){
-        return;
+    getUsuario(login: string, senha: string , email: string,id: string ){
+      return this.httpClient.get<{_id: string, login: String, email: String, senha: String}>
+      (`http://localhost:3030/auth/authenticate/`).subscribe(verificar=>{
+        let user;
+        if(verificar){
+          console.log(user)
         }
-        console.log(login)
-       this.router.navigate(['/principal']);
+      })
+    }
+
+  verificarUser(login: string, senha: string, id: string){
+    const authData: AuthData = {login: login, senha: senha, idUsuario: id}
+      this.httpClient.post<{login: string, senha: string, id: string}>
+      (`http://localhost:3030/auth/authenticate`, authData).subscribe(resposta =>{
+        // this.idUsuario = resposta.id;
+        this.authStatusSubject.next(true);
+        console.log(resposta)
+        this.router.navigate(['/principal']);
 
 
       })

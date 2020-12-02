@@ -58,18 +58,20 @@ router.post('/register', async (req, res, next) =>{
   // })
 
   router.post('/authenticate', async (req ,res, next) =>{
-    const {email, senha} = req.body;
-
-    const user = await User.findOne({email});
-
-    if(!user)
-      return res.status(400).send({error: 'User not found'});
-
-    if((senha, user.senha))
-      return res.status(400).send({error: 'Invalid Password'});
-
-    if(user)
-    res.send({user});
+    // const {login, senha} = req.body;
+    let user ;
+    User.findOne({login: req.body.login}).then(u =>{
+      if(!u){
+        return res.status(400).send({error: 'User not found'});
+      }
+    user = u;
+    return(req.body.senha, u.senha);
+    }).then( result =>{
+      if(!result){
+         return res.status(400).send({error: 'Invalid Password'});
+      }
+    });
+    res.send(user);
   });
 
 router.get('/register', async (req, res, next) =>{
