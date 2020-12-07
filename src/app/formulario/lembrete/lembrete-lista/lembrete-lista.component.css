@@ -1,14 +1,27 @@
-.buttonLogout{
-  margin-top: 500px;
+main{
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+form{
+  margin-top: 1rem;
+  position: static;
 }
 
 .listaTitle{
   flex: 1;
   display: inline;
   margin-bottom: 20px;
-  margin-right: 965px;
+  color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 }
-
+p{
+  margin-top: 20px;
+  color:white
+}
 mat-spinner{
   margin:auto;
 }
@@ -17,9 +30,20 @@ mat-spinner{
   width: 100%;
   display: flex;
   justify-content: center;
+  background-color: rgb(49, 93, 122);
   }
   .cliente-imagem > img {
   max-width: 20px;
   }
 
+#buttonAdicionar{
+  display: inline;
+  margin-inline-start: 990px;
+  margin-bottom: 20px;
+  margin-top: 1rem;
+  position: absolute;
+}
+mat-expansion-panel{
+  color: black;
+}
 

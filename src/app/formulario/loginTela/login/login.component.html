@@ -1,20 +1,22 @@
+
+<main>
 <h2>Login</h2>
 
-<form  [formGroup]='form' submit="onFazerLogin(userForm)" autocomplete="off">
+<form  [formGroup]='form'  autocomplete="off" >
 <mat-card>
   <mat-form-field>
-    <input type="text" matInput placeholder="Usuário de login" >
+    <input type="text" formControlName="login" matInput placeholder="Usuário de login" >
     <mat-error *ngIf="form.get('login').invalid"></mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input type="text" matInput placeholder="Senha">
+    <input type="text" matInput placeholder="Senha" formControlName="senha">
     <mat-error *ngIf="form.get('senha').invalid"></mat-error>
   </mat-form-field>
 
   <hr>
-  <button color='primary' mat-raised-button (click)='onFazerLogin()'>Fazer Login</button>
-  <!-- <button color='primary' mat-raised-button (click)='onVerificar()'>Verificar</button> -->
+  <button type="button" class="btn btn-outline-light" (click)='onFazerLogin()'>Fazer Login</button>
 </mat-card>
 </form>
 <p><strong>Sem cadastro?<button mat-button routerLink="/"><a routerLink="/">Cadastre-se Já</a></button></strong></p>
+</main>

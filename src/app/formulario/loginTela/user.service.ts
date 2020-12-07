@@ -2,18 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { User } from '../loginTela/user.model';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { bcryptjs } from 'bcryptjs';
-import { AuthData } from './authData.model';
+import { map } from "rxjs/operators";
+
 
 
 @Injectable({ providedIn: "root"})
 export class UserService {
+
   private user : User[] = [];
   private listaUserAtualizada = new Subject<User[]>();
   private authStatusSubject = new Subject<boolean>();
 
+// getUsuario(idUsuario: string ){
+//       return this.httpClient.get<{id: string, login: String, email: String, senha: String}>
+//       (`http://localhost:3030/auth/authenticate/${idUsuario}`) };
 
   private idUsuario: string;
 
@@ -25,20 +28,20 @@ public getStatusSubject (){
   return this.authStatusSubject.asObservable();
 }
 
-  getUser(): void{
+  getUsers(): void{
     this.httpClient.get<{mensagem: string, users: any}>('http://localhost:3030/auth/authenticate')
     .pipe(map((dados) => {
       return dados.users.map(user =>{
         return{
+          id: user._id,
           login: user.login,
-          senha: user.senha
+          senha: user.senha,
         }
       })
     }))
-    .subscribe((dados)=>{
-      this.user = dados.users;
+    .subscribe((users)=>{
+      this.user = users,
       this.listaUserAtualizada.next([...this.user]);
-      return(dados)
     })
   }
 
@@ -60,27 +63,31 @@ public getStatusSubject (){
     }
 
 
-    getUsuario(login: string, senha: string , email: string,id: string ){
-      return this.httpClient.get<{_id: string, login: String, email: String, senha: String}>
-      (`http://localhost:3030/auth/authenticate/`).subscribe(verificar=>{
-        let user;
-        if(verificar){
-          console.log(user)
-        }
-      })
+  getUsuario(idUser: string){
+    return this.httpClient.get<{id: string, login: string, email: string, senha: string}> (`http://localhost:3030/auth/authenticate/${idUser}`)
+  }
+
+
+  verificarUser(login: string, senha: string, email: null, idUser: string){
+    const user: User = {
+      login,
+      senha,
+      email,
+      id: idUser
     }
+    // console.log (user);
+      this.httpClient.post<{id: string, email: string, login: string, senha:string}>
+      (`http://localhost:3030/auth/authenticate/`, user).subscribe(login =>{
 
-  verificarUser(login: string, senha: string, id: string){
-    const authData: AuthData = {login: login, senha: senha, idUsuario: id}
-      this.httpClient.post<{login: string, senha: string, id: string}>
-      (`http://localhost:3030/auth/authenticate`, authData).subscribe(resposta =>{
-        // this.idUsuario = resposta.id;
-        this.authStatusSubject.next(true);
-        console.log(resposta)
+        if(!login){
+        return;
+        }
+        console.log(login);
         this.router.navigate(['/principal']);
-
-
       })
+
+
+
 
 
     }

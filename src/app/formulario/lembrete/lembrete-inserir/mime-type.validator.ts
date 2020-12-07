@@ -30,7 +30,7 @@ export const mimeTypeValidator = (
     observer.next(valido ? null : {mimeTypeInvalido: true});
     observer.complete();
     })
-    leitor.readAsArrayBuffer(arquivo);
+    //leitor.readAsArrayBuffer(arquivo);
     });
   return observable;
 }

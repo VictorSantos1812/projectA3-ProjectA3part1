@@ -1,11 +1,39 @@
 mat-form-field, input{
   width: 100%;
 }
+/* div{
+margin-top: 20px;
+background-color:rgb(49, 93, 122);
+border-radius: 10px;
+padding: 30px;
+} */
+
+p{
+  color: white;
+}
+main{
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right:auto;
+  width: 80%;
+}
+
+#buttonVoltar{
+  display: inline;
+  margin-inline-start: 1049px;
+  margin-top: 1rem;
+  margin-bottom: 10px;
+  position: static;
+}
 
 .adicionarTitle{
   flex: 1;
   display: inline;
-  margin-right: 1049px;
+  margin-bottom: auto;
+  margin-bottom: 20px;
+  color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 }
 
 mat-spinner{

@@ -1,12 +1,11 @@
-<h1 class="adicionarTitle"> Adicionar Lembretes </h1><button class="buttonBack" routerLink="/principal" mat-raised-button color="primary">Voltar</button>
-
-
-<hr>
+<main>
+<h1 class="adicionarTitle"> Adicionar Lembretes </h1>
+<button type="button" class="btn btn-secondary" id="buttonVoltar"routerLink="/principal" >Voltar</button>
 <mat-card>
   <mat-spinner *ngIf="estaCarregando"></mat-spinner>
   <form  [formGroup]='form' (submit)="onSalvarLembrete()" *ngIf="!estaCarregando" autocomplete="off">
 
-    <mat-form-field >
+    <!-- <mat-form-field >
       <input type="date"
         matInput
         placeholder="Data Atual"
@@ -16,7 +15,7 @@
       <mat-error *ngIf="form.get('dataHoje').invalid">Digite a Data Atual </mat-error>
     </mat-form-field>
 
-      <hr>
+      <hr> -->
 
     <mat-form-field>
       <input type="date"
@@ -64,6 +63,6 @@
     </button>
   </form>
 </mat-card>
-
+</main>
 
 

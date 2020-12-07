@@ -1,5 +1,4 @@
-@import '@angular/material/prebuilt-themes/purple-green.css';
-
-/* body{
-  background-image: url(./app/934174.jpg);
-} */
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+body{
+  background-image: url(./app/black-purple-gradient-linear-1920x1080-c2-000000-800080-a-270-f-14.jpg);
+}

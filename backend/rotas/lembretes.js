@@ -36,7 +36,7 @@ const armazenamento = multer.diskStorage({
 router.post('', multer({storage: armazenamento}).single('imagem'), (req, res, next)=>{
   const imagemURL = `${req.protocol}://${req.get('host')}`
   const lembrete = new Lembrete({
-    dataHoje: req.body.dataHoje,
+    //dataHoje: req.body.dataHoje,
     dataPrev: req.body.dataPrev,
     nome: req.body.nome,
     conteudoLembrete: req.body.conteudoLembrete,
@@ -49,7 +49,7 @@ router.post('', multer({storage: armazenamento}).single('imagem'), (req, res, ne
       //id: lembreteInserido._id
       lembrete: {
         id: lembreteInserido._id,
-        dataHoje: lembreteInserido.dataHoje,
+        //dataHoje: lembreteInserido.dataHoje,
         dataPrev: lembreteInserido.dataPrev,
         nome: lembreteInserido.nome,
         conteudoLembrete: lembreteInserido.conteudoLembrete,
@@ -83,7 +83,7 @@ router.delete ('/:id', (req, res, next) => {
 router.put("/:id", (req, res, next) => {
   const lembrete = new Lembrete({
     _id: req.params.id,
-    dataHoje: req.body.dataHoje,
+   // dataHoje: req.body.dataHoje,
     dataPrev: req.body.dataPrev,
     nome: req.body.nome,
     conteudoLembrete: req.body.conteudoLembrete,

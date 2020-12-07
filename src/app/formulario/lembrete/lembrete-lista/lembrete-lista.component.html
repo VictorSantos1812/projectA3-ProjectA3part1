@@ -1,14 +1,14 @@
-
-  <h1 class="listaTitle">Lista de Lembretes</h1><button class='buttonAdicionar'
-    color= "primary" mat-raised-button routerLink="/criar" routerLinkActive="mat-accent">
+<main>
+  <h1 class="listaTitle">Lista de Lembretes</h1>
+  <button type="button"  class="btn btn-secondary" id='buttonAdicionar' routerLink="/criar" >
     Adicionar Lembretes
   </button>
 
+<form>
 <mat-spinner *ngIf ="estaCarregando"></mat-spinner>
 <mat-accordion *ngIf='lembretes.length > 0 && !estaCarregando' >
-  <hr>
   <mat-expansion-panel *ngFor='let lembrete of lembretes'>
-    <mat-expansion-panel-header>Lembrete: {{ lembrete.nome }}</mat-expansion-panel-header>
+    <mat-expansion-panel-header> <p> Lembrete: {{ lembrete.nome }}</p></mat-expansion-panel-header>
 
       <p>Data de Cadastro: {{ lembrete.dataHoje | date:'dd/MM/yyyy'}}</p>
       <p>Data de Previsão: {{ lembrete.dataPrev | date:'dd/MM/yyyy' }}</p>
@@ -19,12 +19,12 @@
       <mat-action-row>
         <a mat-button color="primary" [routerLink]="['/editar', lembrete.id]">Editar</a>
         <button mat-button color="warn" (click)="onDelete(lembrete.id)">Remover</button>
-
       </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
 
 <p class='mat-body-1' style="text-align: center;" *ngIf="lembretes.length<=0 && !estaCarregando">
 Nenhum Lembrete Adicionado</p>
-<br>
-<button  class="buttonLogout"mat-raised-button routerLink="/">sair</button>
+</form>
+
+</main>

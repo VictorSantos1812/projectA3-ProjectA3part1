@@ -15,10 +15,12 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
   private modo: string = "login";
-  public user: User;
+  public users: User;
   login: string;
   senha: string;
   form: FormGroup;
+
+ private idUser: string;
 
   ngOnInit(){
     this.form = new FormGroup({
@@ -28,23 +30,21 @@ export class LoginComponent implements OnInit {
       senha: new FormControl(null,{
         validators: [Validators.required]
       })
+    });
+    this.route.paramMap.subscribe((paramMap: ParamMap)=>{
+      if(paramMap.has("idUser")){
+        this.idUser = paramMap.get("idUser");
+        this.userService.getUsuario(this.idUser).subscribe(dadosUser =>{
+          this.users ={
+            id: dadosUser.id,
+            login: dadosUser.login,
+            email:dadosUser.email,
+            senha: dadosUser.senha
+          }
+        })
+      }
     })
-
-    // this.route.paramMap.subscribe((paramMap: ParamMap)=>{
-    //   if(paramMap.has("loginUser")){
-    //     this.modo = "login";
-    //     this.loginUser = paramMap.get("loginUser");
-    //     this.userService.getUsuario(this.loginUser).subscribe(dadosUser =>{
-    //       this.user={
-    //         id: dadosUser.id,
-    //         email: dadosUser.email,
-    //         login: dadosUser.login,
-    //         senha: dadosUser.senha
-    //       }
-    //     })
-    //   }
-    }
-
+  }
 
 
 
@@ -54,20 +54,10 @@ constructor(public userService: UserService, public route: ActivatedRoute){}
     this.userService.verificarUser(
       this.form.value.login,
       this.form.value.senha,
+      this.form.value.email,
       this.form.value.id
    );
 
 
    }
-
-//  onVerificar(){
-//      this.userService.getUsuario(
-//       this.form.value.login,
-//       this.form.value.senha,
-//       this.form.value.email,
-//       this.form.value.id
-//      )
-// }
-
-
 }

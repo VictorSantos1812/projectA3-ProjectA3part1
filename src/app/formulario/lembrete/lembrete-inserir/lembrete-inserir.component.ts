@@ -37,7 +37,7 @@ export class LembreteInserirComponent implements OnInit{
         validators: []
       }),
       imagem: new FormControl(null, {
-        validators: [Validators.required],
+        validators: [],
         asyncValidators: [mimeTypeValidator]
       }),
     })
