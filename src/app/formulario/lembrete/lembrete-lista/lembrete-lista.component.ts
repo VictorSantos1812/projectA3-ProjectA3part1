@@ -19,9 +19,9 @@ constructor(private lembreteService: LembreteService,
   lembretes: Lembrete[] = [];
   public idUsuario: string;
   public totalDeLembretes: number = 0;
-  public totalDeLembretesPorPagina: number = 5;
+  public totalDeLembretesPorPagina: number = 3;
   public paginaAtual: number = 1;
-  public opcoesTotalDeLembretesPorPagina: number[] = [5, 10];
+  public opcoesTotalDeLembretesPorPagina: number[] = [3, 5, 10];
   private lembreteSubscription: Subscription;
   public estaCarregando = false;
   public autenticado: boolean = false;
@@ -37,13 +37,14 @@ constructor(private lembreteService: LembreteService,
   onDelete(id: string){
     this.estaCarregando = true;
     this.lembreteService.removerLembrete(id).subscribe(() => {
-      this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual);
+      this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual,);
     });
   }
 
   ngOnInit(): void {
     this.estaCarregando = true;
-    this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual);
+    this.lembreteService.getLem(this.idUsuario);
+    this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual,);
     this.idUsuario = this.userService.getIdUser();
     this.lembreteSubscription = this.lembreteService
     .getListaLembretesAtualizadoObservable()
@@ -63,7 +64,7 @@ constructor(private lembreteService: LembreteService,
     this.estaCarregando = true;
     this.paginaAtual = dadosPagina.pageIndex + 1;
     this.totalDeLembretesPorPagina = dadosPagina.pageSize;
-    this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual);
+    this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual,);
   }
 
 

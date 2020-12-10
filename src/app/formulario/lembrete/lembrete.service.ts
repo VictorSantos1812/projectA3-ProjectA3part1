@@ -1,21 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { from, Subject } from 'rxjs';
 import { Lembrete } from './lembrete.model';
+import { User } from '../loginTela/user.model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UserService } from '../loginTela/user.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class LembreteService {
+  public user: UserService;
   private lembretes: Lembrete [] = [];
   private listaLembretesAtualizado = new Subject<{lembretes: Lembrete[], maxLembretes: number}>();
 
 
-  constructor(private httpClient: HttpClient, private router: Router){};
+  constructor(private httpClient: HttpClient, private router: Router, public userService: UserService){};
 
-
-getLembretes(pagesize: number, page: number): void {
+getLem(idUsuario: string):void{
+  let userData: User = {
+    id: idUsuario,
+    login: null,
+    email: null,
+    senha: null
+  }
+  this.httpClient.patch(`http://localhost:3030/api/principal/${idUsuario}`, userData)
+}
+getLembretes(pagesize: number, page: number,): void {
   const parametros = `?pagesize=${pagesize}&page=${page}`;
     this.httpClient.get <{mensagem: string, lembrete:any, maxLembretes: number}>(
       `http://localhost:3030/api/principal${parametros}`

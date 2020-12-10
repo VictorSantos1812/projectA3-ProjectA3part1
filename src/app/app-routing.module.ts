@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LembreteListaComponent } from './formulario/lembrete/lembrete-lista/lembrete-lista.component';
 import { LembreteInserirComponent } from './formulario/lembrete/lembrete-inserir/lembrete-inserir.component';
-import { CabecalhoComponent } from './formulario/cabecalho/cabecalho.component';
-import { CabecalhoLoginComponent } from './formulario/loginTela/cabecalho-login/cabecalho-login.component';
+
 
 
 import { LoginComponent } from './formulario/loginTela/login/login.component';
