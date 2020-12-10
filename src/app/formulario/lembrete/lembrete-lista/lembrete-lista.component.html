@@ -23,6 +23,14 @@
   </mat-expansion-panel>
 </mat-accordion>
 
+<mat-paginator
+    *ngIf="lembretes.length > 0"
+    [length]="totalDeLembretes"
+    [pageSize]="totalDeLembretesPorPagina"
+    [pageSizeOptions]="opcoesTotalDeLembretesPorPagina"
+    (page)="onPaginaAlterada($event)"
+></mat-paginator>
+
 <p class='mat-body-1' style="text-align: center;" *ngIf="lembretes.length<=0 && !estaCarregando">
 Nenhum Lembrete Adicionado</p>
 </form>

@@ -1,8 +1,9 @@
 export interface Lembrete{
-  id: String;
+  id: string;
   dataHoje: String;
   dataPrev: String;
-  nome: String;
-  conteudoLembrete: String;
-  imagemURL: String;
+  nome: string;
+  conteudoLembrete: string;
+  imagemURL: string;
+  criador: string;
 }

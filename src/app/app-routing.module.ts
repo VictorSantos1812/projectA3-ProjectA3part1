@@ -10,6 +10,7 @@ import { CabecalhoLoginComponent } from './formulario/loginTela/cabecalho-login/
 import { LoginComponent } from './formulario/loginTela/login/login.component';
 import { CadastroComponent} from './formulario/loginTela/cadastro/cadastro.component';
 
+import { AuthGuard } from './formulario/loginTela/auth.guard';
 
 
 
@@ -17,8 +18,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', component: CadastroComponent},
   {path: 'principal', component: LembreteListaComponent },
-  {path: 'criar', component: LembreteInserirComponent},
-  {path: 'editar/:idLembrete', component: LembreteInserirComponent}
+  {path: 'criar', component: LembreteInserirComponent,  canActivate: [AuthGuard]},
+  {path: 'editar/:idLembrete', component: LembreteInserirComponent,  canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -27,6 +28,9 @@ const routes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    AuthGuard
   ]
 })
   export class AppRoutingModule{

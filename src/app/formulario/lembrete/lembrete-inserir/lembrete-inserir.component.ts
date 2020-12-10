@@ -50,19 +50,20 @@ export class LembreteInserirComponent implements OnInit{
         this.lembreteService.getLembrete(this.idLembrete).subscribe(dadosLem =>{
           this.estaCarregando = false;
           this.lembrete={
-            id: dadosLem.id,
+            id: dadosLem._id,
             dataHoje: dadosLem.dataHoje,
             dataPrev: dadosLem.dataPrev,
             nome: dadosLem.nome,
             conteudoLembrete: dadosLem.conteudoLembrete,
-            imagemURL: null,
+            imagemURL: dadosLem.imagemURL,
+            criador: dadosLem.criador
           },
           this.form.setValue({
           dataHoje: this.lembrete.dataHoje,
           dataPrev: this.lembrete.dataPrev,
           nome: this.lembrete.nome,
           conteudoLembrete: this.lembrete.conteudoLembrete,
-          imagem: null
+          imagem: this.lembrete.imagemURL
         });
 
         })
@@ -98,7 +99,7 @@ export class LembreteInserirComponent implements OnInit{
         this.form.value.dataPrev,
         this.form.value.nome,
         this.form.value.conteudoLembrete,
-        this.form.value.imagemURL
+        this.form.value.imagem,
       )
     }
     this.form.reset();

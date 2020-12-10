@@ -2,25 +2,25 @@
 <h2>Cadastro</h2>
 
 <mat-card>
-  <form [formGroup]='form' (submit)="onAdicionarUser()" autocomplete="off">
+  <form  (submit)="onAdicionarUser(adicionaruserForm)" #adicionaruserForm="ngForm" autocomplete="off">
 
     <mat-form-field>
-      <input type="text" matInput placeholder="Email" formControlName="email" name="email" />
-      <mat-error *ngIf="form.get('email').invalid">Digite um email válido</mat-error>
+      <input type="text" matInput name="email" ngModel  #emailInput="ngModel" placeholder="Email" required email/>
+      <mat-error *ngIf="emailInput.invalid">Digite um email válido</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input type="text" matInput placeholder="Usuário de login" formControlName="login" name="login">
-      <mat-error *ngIf="form.get('login').invalid">Digite um login válido</mat-error>
+      <input type="text" matInput name="login" ngModel  #loginInput="ngModel" placeholder="Login" required>
+      <mat-error *ngIf="loginInput.invalid">Digite um email válido</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input type="password" matInput placeholder="Senha" formControlName="senha" name="senha">
-      <mat-error *ngIf="form.get('senha').invalid">Digite uma senha válida</mat-error>
+      <input type="password" matInput name="senha" ngModel  #senhaInput="ngModel" placeholder="Senha" required>
+      <mat-error *ngIf="senhaInput.invalid">Digite uma senha válida</mat-error>
     </mat-form-field>
 
     <hr>
-    <button type="button" class="btn btn-outline-light" (click) = 'onAdicionarUser()'>Cadastrar Usuário</button>
+    <button type="submit" class="btn btn-outline-light">Cadastrar Usuário</button>
   </form>
 </mat-card>
 
