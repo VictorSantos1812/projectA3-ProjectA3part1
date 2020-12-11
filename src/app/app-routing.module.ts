@@ -16,7 +16,8 @@ import { AuthGuard } from './formulario/loginTela/auth.guard';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', component: CadastroComponent},
-  {path: 'principal', component: LembreteListaComponent },
+  {path: 'principal', component: LembreteListaComponent, canActivate: [AuthGuard] },
+  //{path: "/:idUsuario", component: LembreteListaComponent, canActivate: [AuthGuard] },
   {path: 'criar', component: LembreteInserirComponent,  canActivate: [AuthGuard]},
   {path: 'editar/:idLembrete', component: LembreteInserirComponent,  canActivate: [AuthGuard]}
 ];

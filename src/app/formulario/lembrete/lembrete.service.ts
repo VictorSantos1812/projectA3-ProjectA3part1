@@ -17,21 +17,17 @@ export class LembreteService {
 
   constructor(private httpClient: HttpClient, private router: Router, public userService: UserService){};
 
-getLem(idUsuario: string):void{
-  let userData: User = {
-    id: idUsuario,
-    login: null,
-    email: null,
-    senha: null
-  }
-  this.httpClient.patch(`http://localhost:3030/api/principal/${idUsuario}`, userData)
-}
-getLembretes(pagesize: number, page: number,): void {
+// getLem(idUsuario: string):void{
+//   this.httpClient.get(`http://localhost:3030/api/principal/lembretes`)
+// }
+
+getLembretes(pagesize: number, page: number, idUsuario: string): void {
   const parametros = `?pagesize=${pagesize}&page=${page}`;
     this.httpClient.get <{mensagem: string, lembrete:any, maxLembretes: number}>(
       `http://localhost:3030/api/principal${parametros}`
     )
-    .pipe(map((dados) => {
+    .pipe
+    (map((dados) => {
       return {
         lembretes: dados.lembrete.map(lembrete => {
         return {

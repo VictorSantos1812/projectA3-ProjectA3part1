@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { User } from "../user.model";
 
@@ -57,7 +57,6 @@ constructor(public userService: UserService, public route: ActivatedRoute){}
       this.form.value.email,
       this.form.value.id
    );
-
 
    }
 }

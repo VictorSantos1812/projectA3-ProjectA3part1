@@ -16,6 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 
 import { AuthInterceptor } from './formulario/loginTela/auth-interceptor';
+import { ErroInterceptor } from './erro-interceptor';
 import { AppComponent } from './app.component';
 import { CabecalhoComponent } from './formulario/cabecalho/cabecalho.component';
 import { LembreteListaComponent } from './formulario/lembrete/lembrete-lista/lembrete-lista.component';
@@ -29,6 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CabecalhoLoginComponent } from './formulario/loginTela/cabecalho-login/cabecalho-login.component';
 import { UserService } from './formulario/loginTela/user.service';
 import { ErroComponent } from './erro/erro/erro.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import { ErroComponent } from './erro/erro/erro.component';
     LoginComponent,
     CadastroComponent,
     CabecalhoLoginComponent,
+    ErroComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,11 +57,12 @@ import { ErroComponent } from './erro/erro/erro.component';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatDialogModule,
     HttpClientModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    // {provide: HTTP_INTERCEPTORS, useClass: ErroInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErroInterceptor, multi: true}
 ],
   bootstrap: [AppComponent],
   entryComponents: [ErroComponent]

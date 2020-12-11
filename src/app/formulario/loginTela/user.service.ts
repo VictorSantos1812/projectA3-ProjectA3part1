@@ -100,7 +100,7 @@ public getIdUser (): string{
                       this.idUser
           );
         console.log(resposta);
-        this.router.navigate(['/principal']);
+        this.router.navigate(['principal']);
       }
     })
   }
@@ -153,6 +153,11 @@ public getIdUser (): string{
         }
 
 
+    }
+
+    getLemIdUsuario(idUsuario: string) {
+      return this.httpClient.get<{ user: any, message: string }>
+      (`http://localhost:3030/api/principal/lembretes/${idUsuario}` )
     }
 
 

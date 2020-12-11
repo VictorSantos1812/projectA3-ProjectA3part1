@@ -4,6 +4,8 @@ import { LembreteService } from '../lembrete.service';
 import { UserService } from '../../loginTela/user.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { User } from '../../loginTela/user.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,11 +15,12 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class LembreteListaComponent implements OnInit, OnDestroy {
 constructor(private lembreteService: LembreteService,
-   private userService: UserService
+   private userService: UserService, public router: Router
    ){ }
 
   lembretes: Lembrete[] = [];
   public idUsuario: string;
+  lemUser: User [] = [];
   public totalDeLembretes: number = 0;
   public totalDeLembretesPorPagina: number = 3;
   public paginaAtual: number = 1;
@@ -37,18 +40,19 @@ constructor(private lembreteService: LembreteService,
   onDelete(id: string){
     this.estaCarregando = true;
     this.lembreteService.removerLembrete(id).subscribe(() => {
-      this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual,);
+      this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual, this.idUsuario);
     });
   }
 
   ngOnInit(): void {
     this.estaCarregando = true;
-    this.lembreteService.getLem(this.idUsuario);
-    this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual,);
+    // this.lembreteService.getLem(this.idUsuario);
+    this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual, this.idUsuario);
     this.idUsuario = this.userService.getIdUser();
     this.lembreteSubscription = this.lembreteService
     .getListaLembretesAtualizadoObservable()
     .subscribe((dados: { lembretes: [], maxLembretes: number}) =>{
+      this.getLembretesCriadorId(dados.lembretes);
       this.estaCarregando = false;
       this.lembretes = dados.lembretes;
       this.totalDeLembretes = dados.maxLembretes
@@ -57,6 +61,21 @@ constructor(private lembreteService: LembreteService,
     this.authObserver = this.userService.getStatusSubject().subscribe(autenticado => {
       this.autenticado = autenticado
     })
+
+  }
+
+  getLembretesCriadorId(lembrete: Lembrete[]){
+    let idUsuario = []
+    for (let i in lembrete){
+      idUsuario.push(lembrete[i].criador)
+    }
+
+    let unique = [... new Set(idUsuario)];
+    for (let i in unique){
+      this.userService.getLemIdUsuario(unique[i]).subscribe(user =>{
+        this.lemUser.push(user.user)
+      })
+    }
   }
 
   onPaginaAlterada(dadosPagina: PageEvent) {
@@ -64,8 +83,14 @@ constructor(private lembreteService: LembreteService,
     this.estaCarregando = true;
     this.paginaAtual = dadosPagina.pageIndex + 1;
     this.totalDeLembretesPorPagina = dadosPagina.pageSize;
-    this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual,);
+    this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual, this.idUsuario);
   }
+
+  // getLem(){
+  //   this.lembreteService.getLembretes(this.totalDeLembretesPorPagina, this.paginaAtual, this.idUsuario);
+  // }
+
+
 
 
 

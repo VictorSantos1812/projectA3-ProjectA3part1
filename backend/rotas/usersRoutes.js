@@ -77,6 +77,18 @@ router.post('/register', async (req, res, next) =>{
   }
 });
 
+// router.get("/authenticate/:id", (req,res,next)=>{
+//   User.findOne({criador: req.body.id}).then((prof)=>{
+//     if(prof){
+//       res.status(200).json({
+//         user: prof
+//       })
+//     }else{
+//       res.status(404).json({ message: "Profile not found!" });
+//     }
+//   })
+// })
+
 
 
 

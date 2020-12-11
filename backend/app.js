@@ -18,6 +18,7 @@ mongoose.connect('mongodb+srv://usuario_base:outrasenha@cluster0.2ifyd.mongodb.n
 mongoose.Promise = global.Promise;
 
 app.use (bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/imagens', express.static(path.join("backend/imagens")));
 

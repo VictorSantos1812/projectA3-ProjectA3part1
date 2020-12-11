@@ -125,20 +125,19 @@ router.get('/:id', (req, res, next) =>{
   })
 })
 
-router.patch("/:criador", (req, res)=>{
-  Lembrete.find({criador: req.params.criador}).then((lem)=>{
-    if(!lem){
-      return res.status(400).send('lembrete não encontrado')
-    }
+router.get("/lembretes/:id",checkAuth,(req, res, next)=>{
+  Lembrete.find({criador: req.dadosUsuario.id}).then((lem)=>{
+    if(lem){
+     res.status(200).json({
+       mensagem:"Lembrete encontrado",
+       lembretes: lem
+     });
     console.log(lem)
-    res.status(200).send(lem);
-
+   }else{
+   return res.status(400).json({mensagem: 'lembrete não encontrado'})
+  }
   })
 })
-
-
-
-
 
 
 
